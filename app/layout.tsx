@@ -4,6 +4,9 @@ import './globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
 import { useTheme } from 'next-themes'
 import { TooltipProvider } from '@/components/ui/tooltip'
+import { GeistSans } from 'geist/font/sans';
+import { GeistMono } from 'geist/font/mono';
+
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en' className='dark'>
-      <body className={` ${inter.className}`}>
+      <body className={` ${GeistSans.className}`} suppressHydrationWarning>
         <ThemeProvider
           attribute='class'
           defaultTheme='system'

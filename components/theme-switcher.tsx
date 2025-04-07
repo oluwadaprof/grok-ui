@@ -22,28 +22,44 @@ export const themeColors: Record<string, string> = {
   red: 'bg-red-600',
   rose: 'bg-rose-600'
 }
+const getSystemTheme = (): 'light' | 'dark' => {
+  return window.matchMedia('(prefers-color-scheme: dark)').matches
+    ? 'dark'
+    : 'light'
+}
 
 export const ThemeSwitcher = () => {
   const { setTheme, themes, theme: currentTheme } = useTheme()
 
+  const handleSystemTheme = () => {
+    const systemTheme = getSystemTheme()
+    setTheme(systemTheme)
+  }
+
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button className='rounded-full h-8 w-8 bg-primary'  size='icon'>
+      <DropdownMenuTrigger asChild onClick={handleSystemTheme}>
+        <Button className='h-8 w-8 rounded-full bg-primary' size='icon'>
           <Sun className='h-[.8rem] w-[.8rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0' />
           <Moon className='absolute h-[.8rem] w-[.8rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100' />
           <span className='sr-only'>Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align='end' className='mt-2'>
+      <DropdownMenuContent align='end' className='mt-2 rounded-xl'>
         {themes.map(theme => (
-          <DropdownMenuItem className='hover:cursor-pointer' key={theme} onClick={() => setTheme(theme)}>
-            <div
-              className={`flex h-4 w-4 items-center justify-center rounded-full ${currentTheme === 'light' ? 'border-black bg-white' : 'border-white'} border-spacing-1 border-2`}
-            >
-              <div className={`h-2 w-2 rounded-full ${themeColors[theme]}`} />
+          <DropdownMenuItem
+            className='hover:cursor-pointer flex justify-between'
+            key={theme}
+            onClick={() => setTheme(theme)}
+          >
+            <div className='flex gap-2 items-center'>
+              <div
+                className={`flex h-4 w-4 items-center justify-center rounded-full ${currentTheme === 'light' ? 'border-black bg-white' : 'border-white'} border-spacing-1 border-2`}
+              >
+                <div className={`h-2 w-2 rounded-full ${themeColors[theme]}`} />
+              </div>
+              {theme}
             </div>
-            {theme}
             {theme === currentTheme && (
               <span className='ml-2 text-green-500'>
                 <svg

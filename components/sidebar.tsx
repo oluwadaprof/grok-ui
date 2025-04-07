@@ -17,6 +17,7 @@ import {
   SquareMousePointer,
   Unplug
 } from 'lucide-react'
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 
 const buttonConfigTop = [
   { icon: <Sparkles size={14} />, name: 'Sparkles' },
@@ -30,7 +31,13 @@ const buttonConfigTop = [
 const buttonConfigBottom = [
   { icon: <Unplug size={14} />, name: 'Unplug' },
   { icon: <Box size={14} />, name: 'Box' },
-  { icon: <Settings size={14} />, name: 'Settings' }
+  { icon: <Settings size={14} />, name: 'Settings' },
+//   {
+//     icon: (
+//       <Image src='https://github.com/shadcn.png' width={10} height={10} alt='@shadcn'  />
+//     ),
+//     name: 'shadcn'
+//   }
 ]
 
 const Sidebar = () => {
@@ -43,7 +50,7 @@ const Sidebar = () => {
       animate={{ width: isSidebarOpen ? '140px' : '40px' }}
       transition={{ duration: 0.3 }}
       style={{ width: isSidebarOpen ? '140px' : '40px' }}
-      className={`flex flex-col items-start justify-between bg-primary py-4 pl-2`}
+      className={` flex-col items-start justify-between bg-primary py-4 pl-2 hidden sm:flex`}
     >
       <div>
         <div className='mb-4'>
@@ -71,7 +78,7 @@ const Sidebar = () => {
                 <Button
                   size='icon'
                   variant='ghost'
-                  className='justify-start text-muted-foreground transition-colors duration-200 hover:bg-transparent hover:text-muted'
+                  className='justify-start text-muted-foreground transition-all duration-300 hover:bg-transparent hover:text-muted'
                 >
                   {button.icon}
                   {isSidebarOpen && (
@@ -79,14 +86,16 @@ const Sidebar = () => {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: isSidebarOpen ? 1 : 0 }}
                       transition={{ duration: 1.2 }}
-                      className='ml-2'
+                      className='ml-2 sm:block hidden'
                     >
                       {button.name}
                     </motion.span>
                   )}
                 </Button>
               </TooltipTrigger>
-              <TooltipContent side='left' sideOffset={isSidebarOpen ? 95 : 15}>{button.name}</TooltipContent>
+              <TooltipContent side='left' className='rounded-xl' sideOffset={isSidebarOpen ? 95 : 6}>
+                {button.name}
+              </TooltipContent>
             </Tooltip>
           ))}
         </div>
@@ -99,7 +108,7 @@ const Sidebar = () => {
               <Button
                 size='icon'
                 variant='ghost'
-                className='justify-start text-muted-foreground transition-colors duration-200 hover:bg-transparent hover:text-muted'
+                className='justify-start text-muted-foreground transition-all duration-300 hover:bg-transparent hover:text-muted '
               >
                 {button.icon}
                 {isSidebarOpen && (
@@ -114,9 +123,15 @@ const Sidebar = () => {
                 )}
               </Button>
             </TooltipTrigger>
-            <TooltipContent side='left' sideOffset={isSidebarOpen ? 95 : 15}>{button.name}</TooltipContent>
+            <TooltipContent side='left' className='rounded-xl' sideOffset={isSidebarOpen ? 95 : 6}>
+              {button.name}
+            </TooltipContent>
           </Tooltip>
         ))}
+        {/* <Avatar>
+          <AvatarImage src='https://github.com/shadcn.png' alt='@shadcn' />
+          <AvatarFallback>CN</AvatarFallback>
+        </Avatar> */}
       </div>
     </motion.div>
   )
